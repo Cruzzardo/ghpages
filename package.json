@@ -15,6 +15,7 @@
     "webpack-dev-server": "^4.11.0"
   },
   "dependencies": {
-    "deepar": "^5.4.1"
+    "deepar": "^5.4.1",
+    "gh-pages": "^6.1.1"
   }
 }
