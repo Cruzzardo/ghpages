@@ -38,7 +38,7 @@ console.log("Deepar version: " + deepar.version);
       rootPath: "./deepar-resources",
       additionalOptions: {
         cameraConfig: {
-          // facingMode: 'environment'  // uncomment this line to use the rear camera
+          facingMode: 'environment'  // uncomment this line to use the rear camera
         },
       },
     });
