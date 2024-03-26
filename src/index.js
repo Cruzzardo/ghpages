@@ -17,10 +17,10 @@ console.log("Deepar version: " + deepar.version);
   // All the effects are in the public/effects folder.
   // Here we define the order of effect files.
   const effectList = [
+    "effects/cocodrilo.deepar",
+    "effects/python.deepar",
     "effects/ariat.deepar",
-    "effects/shoe.deepar",
-    "effects/Stallone.deepar",
-    "effects/Vendetta_Mask.deepar",
+    "effects/avestruz.deepar",
     "effects/viking_helmet.deepar",
   ];
 
@@ -29,7 +29,7 @@ console.log("Deepar version: " + deepar.version);
   // Initialize DeepAR with an effect file.
   try {
     deepAR = await deepar.initialize({
-      licenseKey: "66255220b032d1783b464a0ff3dca9a3882397235ed158e1113b0e8e3b8c1cf8091b4eb25f52e98d",
+      licenseKey: "ebf61db9f1b8cd9fe9aae1b10abf990e5f765de4897c0e9f6d46943c22e8e7e39fe19655194f07a4",
       previewElement,
       effect: effectList[0],
       // Removing the rootPath option will make DeepAR load the resources from the JSdelivr CDN,
