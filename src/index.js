@@ -8,14 +8,14 @@ let deepAR = null;
 const effectList = [
     "effects/cocodrilo.deepar",
     "effects/python.deepar",
-    "effects/ariat.deepar",
+    "effects/crazy.deepar",
     "effects/avestruz.deepar",
-    "effects/viking_helmet.deepar",
+    "effects/rupper.deepar",
     "effects/cocodrilo_recortada.deepar",
     "effects/python_recortada.deepar",
-    "effects/ariat_recortada.deepar",
+    "effects/crazy_recortada.deepar",
     "effects/avestruz_recortada.deepar",
-    "effects/viking_helmet.deepar",
+    "effects/rupper_recortada.deepar",
 ];
 
 let currentEffectListIndex = 0;
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     try {
         deepAR = await deepar.initialize({
-            licenseKey: "9f07a1d41991878d11104d976516fbed6007a4a2c54782b392f34a94834223d48f2efcf41edd4ff4",
+            licenseKey: "76dbd15352add535599b1cb69da8084252e8c4e1cd487f5a5f4b46cabc4fbe4dc1a359af4d00a4e3",
             previewElement,
             effect: effectList[currentEffectListIndex],
             rootPath: "./deepar-resources",
