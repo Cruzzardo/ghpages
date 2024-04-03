@@ -1,79 +1,92 @@
 import * as deepar from "deepar";
 import Carousel from "./carousel.js";
 
-// Log the version. Just in case.
 console.log("Deepar version: " + deepar.version);
 
-// Top-level await is not supported.
-// So we wrap the whole code in an async function that is called immediatly.
-(async function () {
-  // Get the element you want to place DeepAR into. DeepAR will inherit its width and height from this and fill it.
-  const previewElement = document.getElementById("ar-screen");
+let deepAR = null;
 
-  // trigger loading progress bar animation
-  const loadingProgressBar = document.getElementById("loading-progress-bar");
-  loadingProgressBar.style.width = "100%";
-
-  // All the effects are in the public/effects folder.
-  // Here we define the order of effect files.
-  const effectList = [
+const effectList = [
     "effects/cocodrilo.deepar",
     "effects/python.deepar",
     "effects/ariat.deepar",
     "effects/avestruz.deepar",
     "effects/viking_helmet.deepar",
-  ];
+    "effects/cocodrilo_recortada.deepar",
+    "effects/python_recortada.deepar",
+    "effects/ariat_recortada.deepar",
+    "effects/avestruz_recortada.deepar",
+    "effects/viking_helmet.deepar",
+];
 
-  let deepAR = null;
+let currentEffectListIndex = 0;
+let currentEffectIndex = 0; 
+window.effect = effectList[currentEffectListIndex];
 
-  // Initialize DeepAR with an effect file.
-  try {
-    deepAR = await deepar.initialize({
-      licenseKey: "ebf61db9f1b8cd9fe9aae1b10abf990e5f765de4897c0e9f6d46943c22e8e7e39fe19655194f07a4",
-      previewElement,
-      effect: effectList[0],
-      // Removing the rootPath option will make DeepAR load the resources from the JSdelivr CDN,
-      // which is fine for development but is not recommended for production since it's not optimized for performance and can be unstable.
-      // More info here: https://docs.deepar.ai/deepar-sdk/platforms/web/tutorials/download-optimizations/#custom-deployment-of-deepar-web-resources
-      rootPath: "./deepar-resources",
-      additionalOptions: {
-        cameraConfig: {
-          facingMode: 'environment'  // uncomment this line to use the rear camera
-        },
-      },
-    });
-  } catch (error) {
-    console.error(error);
+document.addEventListener('DOMContentLoaded', async function () {
+    const previewElement = document.getElementById("ar-screen");
+    const loadingProgressBar = document.getElementById("loading-progress-bar");
+    loadingProgressBar.style.width = "100%";
+
+    try {
+        deepAR = await deepar.initialize({
+            licenseKey: "9f07a1d41991878d11104d976516fbed6007a4a2c54782b392f34a94834223d48f2efcf41edd4ff4",
+            previewElement,
+            effect: effectList[currentEffectListIndex],
+            rootPath: "./deepar-resources",
+            additionalOptions: {
+                cameraConfig: {
+                    facingMode: 'environment'
+                },
+            },
+        });
+    } catch (error) {
+        console.error(error);
+        document.getElementById("loading-screen").style.display = "none";
+        document.getElementById("permission-denied-screen").style.display = "block";
+        return;
+    }
+
     document.getElementById("loading-screen").style.display = "none";
-    document.getElementById("permission-denied-screen").style.display = "block";
-    return;
-  }
+    document.getElementById("ar-screen").style.display = "block";
 
-  // Hide the loading screen.
-  document.getElementById("loading-screen").style.display = "none";
-  document.getElementById("ar-screen").style.display = "block";
+    const glassesCarousel = new Carousel("carousel");
+    glassesCarousel.onChange = async (value) => {
+        currentEffectIndex = value; 
+        const adjustedValue = currentEffectListIndex * 5 + value; 
+        await changeEffect(adjustedValue);
+    };
+});
 
-  window.effect = effectList[0];
-
-  const glassesCarousel = new Carousel("carousel");
-  glassesCarousel.onChange = async (value) => {
+async function changeEffect(effectIndex) {
     const loadingSpinner = document.getElementById("loading-spinner");
+    const newEffect = effectList[effectIndex % effectList.length];
 
-    if (window.effect !== effectList[value]) {
-      loadingSpinner.style.display = "block";
-      await deepAR.switchEffect(effectList[value]);
-      window.effect = effectList[value];
+    if (window.effect !== newEffect) {
+        loadingSpinner.style.display = "block";
+        await deepAR.switchEffect(newEffect);
+        window.effect = newEffect;
     }
     loadingSpinner.style.display = "none";
-  };
-})();
+}
 
-// Register for a collback that lets you know when feet are detected.
-deepAR.callbacks.onFeetTracked = (leftFoot, rightFoot) => {
-  const feetText = document.getElementById("feet-text");
-  // Hide the text when the feet are first detected.
-  if(leftFoot.detected || rightFoot.detected) {
-    feetText.style.display = "none";
-    deepAR.callbacks.onFeetTracked = undefined; // Unregister from the callback.
-  }
-};
+let isButtonOn = false;
+
+// boton con boolean
+function toggleButton() {
+    isButtonOn = !isButtonOn; 
+
+    if (isButtonOn) {
+        document.getElementById("toggle-button").style.backgroundImage = "url('./images/botas.png')";
+        currentEffectListIndex = 1; 
+    } else {
+        document.getElementById("toggle-button").style.backgroundImage = "url('./images/bota_recortada_centrada.png')";
+        currentEffectListIndex = 0; 
+    }
+
+    const newEffectIndex = (currentEffectListIndex * 5) + currentEffectIndex;
+
+    changeEffect(newEffectIndex);
+}
+
+window.toggleButton = toggleButton;
+

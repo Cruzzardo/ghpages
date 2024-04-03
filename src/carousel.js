@@ -160,7 +160,7 @@ class Carousel {
   };
 
   /**
-   * Get the absolute horizontal offset of a slide from the slider's center point
+  
    *
    * @param {Number} slide the index of the slide
    * @returns {Number} the absolute of the offset in pixels
@@ -292,7 +292,7 @@ class Carousel {
    * Set a slide as active and update the active class
    *
    * @param {Number} slide the slide to set as active
-   */
+   */ 
   setActiveSlide = (slide) => {
     // Edge cases
     if (slide < 0) slide = 0;

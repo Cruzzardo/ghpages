@@ -2,12 +2,9 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-    />
-    <title>DeepAR Web SDK - Face and body AR in the browser</title>
+    <title>Probador Virtual</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
@@ -57,21 +54,14 @@
       <div class="permission-denied-text-container">
         <div class="permission-denied-text" id="camera_denied">
           <p>Please reload and allow camera access to use this app.</p>
-          <a
-            class="permission-denied-button"
-            href="https://www.deepar.ai/projects"
-            target="__blank"
-          >
-            Discover more
-          </a>
         </div>
       </div>
     </div>
 
     <!-- AR screen -->
     <div class="fixed-fullscreen screen" id="ar-screen" style="display: none">
-      <!-- <canvas class="deepar" id="deepar-canvas"></canvas> -->
       
+      <button id="toggle-button" onclick="toggleButton()"></button>
       <div class="carousel" id="carousel">
         <div class="carousel-center" id="carousel-center">
           <div class="lds-ring" id="loading-spinner" style="display: none">
@@ -97,7 +87,6 @@
           <div class="slide">
             <img class="responsive-img" src="./thumbs/ropper.png" />
           </div>
-          
         </div>
       </div>
     </div>

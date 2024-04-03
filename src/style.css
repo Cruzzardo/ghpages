@@ -36,15 +36,15 @@ body {
 /* Carousel */
 
 .carousel {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   overflow: hidden;
   cursor: grab;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120px;
-  width: 100%;
+  width: 100vw;
+  height: 20vh;
 }
 
 .carousel.active {
@@ -223,4 +223,21 @@ body {
   &:hover {
     background-color: #eaeaea;
   }
+}
+
+#toggle-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  width: 60px; /* Ajusta el tamaño según necesites */
+  height: 60px; /* Hacerlo igual al ancho creará un círculo */
+  border-radius: 50%; /* Esto hace que el borde del botón sea redondo, creando un efecto de círculo */
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-image: url('./images/bota_recortada_centrada.png'); /* Coloca aquí la ruta de tu imagen */
+  background-size: 50% 50%; /* Ajusta el tamaño de la imagen de fondo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen de fondo */
 }
